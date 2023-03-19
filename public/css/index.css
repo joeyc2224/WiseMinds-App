@@ -1,0 +1,32 @@
+.page-content {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.video-content {
+    margin: 0 auto;
+    width: 500px;
+}
+
+.video-info {
+    text-align: left;
+}
+
+.video-wrapper {
+    display: flex;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+}
+
+video {
+    width: 100%;
+    border-radius: 15px;
+}
