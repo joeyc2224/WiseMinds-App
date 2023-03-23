@@ -26,11 +26,11 @@
     text-align: left;
 }
 
-.sidenav .fa{
-    color: white;
+.sidenav .fa {
+    color: var(--color-secondary-700);
 }
 
-.fa{
+.fa {
     margin-right: 20px;
 }
 
@@ -40,7 +40,11 @@
 
 .active {
     background-color: var(--color-secondary-700);
-  }
+}
+
+.active .fa{
+    color: white;
+}
 
 .main {
     margin-left: 220px;
