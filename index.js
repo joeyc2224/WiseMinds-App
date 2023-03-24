@@ -1,43 +1,31 @@
-const { application } = require("express");
-const express = require("express");
-const app = express();
+//express server setup - do node.js in term to run
+const express = require('express')
+const app = express()
+app.listen(3000, () => console.log('listening on port 3000'))
 
-app.listen(3000, () => console.log("listening on port 3000"));
+//server html pages from public folder
+app.use(express.static('public'))
 
-const { MongoClient } = require('mongodb');
+app.use(express.json())
 
-async function main() {
-    /**
-* Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-* See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-*/
-    const uri = "mongodb + srv://WiseAdmin:<WiseMinds>@wiseminds.lbu0rkf.mongodb.net/?retryWrites=true&w=majority";
+app.use(express.urlencoded({ extended: false }));
 
-    const client = new MongoClient(uri);
+const path = require('path');
 
-    await client.connect();
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://WiseAdmin:WiseAdmin@wisemindsdb.cdbgzjh.mongodb.net/?retryWrites=true&w=majority')
 
-    await listDatabases(client);
+//data models import
+const postData = require('./models/post.js')
 
-    try {
-        await client.connect();
+app.post('/newpost', (request, response) => {
+    console.log(request.body)
+    postData.addNewPost(request.body)
+    response.redirect('/index.html')
+})
 
-        await listDatabases(client);
-
-    } catch (e) {
-        console.error(e);
-    }
-
-    finally {
-        await client.close();
-    }
-
-    main().catch(console.error);
-}
-
-async function listDatabases(client) {
-    databasesList = await client.db().admin().listDatabases();
-
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
+app.get('/getposts', async (request, response) => {
+    response.json({
+        posts: await postData.getPosts()
+    })
+})
