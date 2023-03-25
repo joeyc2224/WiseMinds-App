@@ -3,9 +3,11 @@ const { Schema, model } = mongoose;
 
 const postSchema = new Schema({
     postedBy: String,
-    message: String,
+    video: String,
+    caption: String,
     likes: Number,
     time: Date,
+    day: Number,
     comments: [{
         commentBy: String,
         comment: String,
@@ -17,10 +19,16 @@ const Posts = model('Posts', postSchema);
 
 function addNewPost(post) {
     let myPost = {
-        mood: post.mood,
-        message: post.message,
-        likes: 0,
-        time: Date.now()
+        postedBy: "bob",
+        video: "images/weird-bloke.mov",
+        caption: post.message,
+        likes: 5,
+        time: Date.now(),
+        day: 2,
+        comments: [{
+            commentBy: "Jimmy",
+            comment: "Nice vid mate, really good",
+        }]
     }
     //create new collection data in mongo
     Posts.create(myPost)
@@ -29,8 +37,15 @@ function addNewPost(post) {
         })
 }
 
+let day = 2
+
+function chooseDay(num) {
+    day = num
+}
+
+
 //return posts
-async function getPosts(n=10) {
+async function getPosts(n = 10) {
     let data = []
     await Posts.find({})
         .sort({ 'time': -1 })
@@ -43,8 +58,6 @@ async function getPosts(n=10) {
             console.log('Error:' + err)
         });
     return data;
-
-
 }
 
-module.exports = { addNewPost, getPosts }
+module.exports = { addNewPost, getPosts, chooseDay }

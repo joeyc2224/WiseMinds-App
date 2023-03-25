@@ -17,133 +17,27 @@
     <div class="sidenav">
         <img src="images/WiseMinds(1).svg"
             style="width: 110%; margin-bottom: -60px; margin-top: -60px; margin-left: -10px;">
-        <a class="active" href="index.html"><i class="fa fa-fw fa-home"></i>Family</a>
-        <a href="feed.html"><i class="fa fa-fw fa-feed"></i>Stories</a>
-        <a href="app"><i class="fa fa-fw fa-user"></i>Profile</a>
+        <a class="active" href="index.html"><i class="fa fa-fw fa-home"></i>Home</a>
+        <a href=""><i class="fa fa-fw fa-feed"></i>Stories</a>
+        <a href=""><i class="fa fa-fw fa-user"></i>Profile</a>
+        <a href="post.html"><i class="fa fa-fw fa-paper-plane"></i>Post</a>
     </div>
 
     <div class="main">
 
         <div class="dailyQuestionDiv">
-            <button><i class="fa fa-fw fa-arrow-left"></i></button>
-            <h3>What was it like?</h3>
-            <button><i class="fa fa-fw fa-arrow-right"></i></button>
+            <button onclick="changeQuestion(0)"><i class="fa fa-fw fa-arrow-left"></i></button>
+            <h3 id="question">What was it like?</h3>
+            <button onclick="changeQuestion(1)"><i class="fa fa-fw fa-arrow-right"></i></button>
 
-        </div>
-
-        <div>
-            <a href="post.html">Post</a>
-            <div id="post-container"></div>
         </div>
 
         <hr>
 
-        <div class="video-content">
-            <div class="video-info">
-                <h3>Bobby Bob</h3>
-            </div>
+        <div id="post-container" class="videos"></div>
 
-            <div class="video-wrapper">
 
-                <video controls autoplay muted loop>
-                    <source src="images/AdobeStock_521001712.mov" type="video/mp4">
-                </video>
-
-                <div class="action-buttons">
-                    <button class="button">
-                        <span>
-                            <i class="fa fa-fw fa-heart"></i>
-                        </span>
-                        Like
-                    </button>
-                    <button class="button">
-                        <span>
-                            <i class="fa fa-fw fa-share"></i>
-                        </span>
-                        Share
-                    </button>
-
-                </div>
-            </div>
-
-        </div>
-
-        <div class="video-content">
-            <div class="video-info">
-                <h3>Bobby Bob</h3>
-            </div>
-
-            <div class="video-wrapper">
-
-                <video controls>
-                    <source src="images/AdobeStock_521001712.mov" type="video/mp4">
-                </video>
-
-                <div class="action-buttons">
-                    <button class="button">
-                        <span>
-                            <i class="fa fa-fw fa-heart"></i>
-                        </span>
-                        Like
-                    </button>
-                    <button class="button">
-                        Share
-                    </button>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <script>
-        let postsContainer = document.getElementById("post-container")
-
-        let recentPostData = []
-
-        fetch("/getposts")
-            .then(response => response.json())
-            .then(fetchedData => {
-                recentPostData = fetchedData.posts
-                updateRecentPosts()
-            })
-
-        function updateRecentPosts() {
-            postsContainer.innerHTML = ''
-            recentPostData.forEach(function (post) {
-                console.log(post)
-
-                let postDiv = document.createElement('div')
-                postDiv.className = "post"
-
-                let mood = document.createElement('p')
-                mood.className = "mood"
-                mood.innerHTML = "Current Feeling: " + post.mood
-                postDiv.appendChild(mood)
-
-                let image = document.createElement('p')
-                image.innerHTML = "<i>(Image here if user chooses to do so...)</i>"
-                image.style = "font-size: 18px"
-                postDiv.appendChild(image)
-
-                let message = document.createElement('p')
-                message.className =
-                    message.innerHTML = post.message
-                postDiv.appendChild(message)
-
-                let likeCount = document.createElement('button')
-                likeCount.innerHTML = "Likes: " + post.likes
-                postDiv.appendChild(likeCount)
-
-                let line = document.createElement('hr')
-                postDiv.appendChild(line)
-
-                postsContainer.appendChild(postDiv)
-            })
-        }
-
-    </script>
+        <script src="scripts/loadPosts.js"></script>
 
 </body>
 

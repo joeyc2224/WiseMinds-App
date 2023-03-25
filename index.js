@@ -16,7 +16,7 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://WiseAdmin:WiseAdmin@wisemindsdb.cdbgzjh.mongodb.net/?retryWrites=true&w=majority')
 
 //data models import
-const postData = require('./models/post.js')
+const postData = require('./models/posts.js')
 
 app.post('/newpost', (request, response) => {
     console.log(request.body)
