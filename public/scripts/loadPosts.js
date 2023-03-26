@@ -54,6 +54,7 @@ function updateRecentPosts() {
 
         let video = document.createElement("VIDEO");
         video.setAttribute("src", post.video)
+        video.setAttribute("controls", "controls");
         videoDiv.appendChild(video)
 
         //buttons

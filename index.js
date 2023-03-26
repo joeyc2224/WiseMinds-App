@@ -18,6 +18,11 @@ mongoose.connect('mongodb+srv://WiseAdmin:WiseAdmin@wisemindsdb.cdbgzjh.mongodb.
 //data models import
 const postData = require('./models/posts.js')
 
+app.post('/newvideo', (request, response) => {
+    console.log("hi")
+})
+
+
 app.post('/newpost', (request, response) => {
     console.log(request.body)
     postData.addNewPost(request.body)
@@ -29,3 +34,4 @@ app.get('/getposts', async (request, response) => {
         posts: await postData.getPosts()
     })
 })
+

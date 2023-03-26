@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/tokens.css">
 
+    <script src="https://unpkg.com/@api.video/media-recorder" defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Post</title>
 </head>
@@ -28,7 +30,7 @@
         <h2>New Post</h2>
         <div>
             <form action="/newpost" method="POST">
-                <label>What did you do today?:</label>
+                <label>Caption:</label>
                 <input type="text" id="message" name="message"><br>
                 <br>
                 <input type="submit" value="Post">
@@ -37,26 +39,61 @@
 
         <br><br>
 
-        <div class="left">
-            <div id="startButton" class="button">Start Recording</div>
-            <h2>Preview</h2>
-            <video id="preview" width="160" height="120" autoplay muted></video>
+        <div id="container">
+            <div>
+                <video id="video"></video>
+            </div>
+            <div>
+                <button id="start" disabled>start recording</button>
+                <button id="stop" disabled>stop recording</button>
+            </div>
+            <div>
+                <p>Video link: <span id="video-link"><i>will be displayed when the recording is
+                            finished</i></span></p>
+            </div>
         </div>
 
-        <div class="right">
-            <div id="stopButton" class="button">Stop Recording</div>
-            <h2>Recording</h2>
-            <video id="recording" width="160" height="120" controls></video>
-            <a id="downloadButton" class="button"> Download </a>
-        </div>
 
-        <div class="bottom">
-            <pre id="log"></pre>
-        </div>
+        <script>
+            const video = document.querySelector('#video');
+            const startButton = document.getElementById("start");
+            const stopButton = document.getElementById("stop");
+            const videoLink = document.getElementById("video-link");
+            let stream, recorder;
+
+            var constraints = window.constraints = {
+                audio: true,
+                video: true
+            };
+
+            navigator.mediaDevices.getUserMedia(constraints).then((s) => {
+                stream = s;
+                video.srcObject = s;
+                video.play();
+                startButton.disabled = false;
+            });
+
+            document.getElementById("start").addEventListener("click", () => {
+                recorder = new ApiVideoMediaRecorder(stream, {
+                    uploadToken: "to28AX3NCqTXkrMOieyDlViA"
+                });
+
+                recorder.start();
+
+                startButton.disabled = true;
+                stopButton.disabled = false;
+            });
+
+            document.getElementById("stop").addEventListener("click", () => {
+                startButton.disabled = false;
+                stopButton.disabled = true;
+
+                recorder.stop().then(v => videoLink.innerHTML = v.assets.player);
+            });
+
+        </script>
 
     </div>
-
-    <script src="scripts/record.js"></script>
 
 </body>
 
