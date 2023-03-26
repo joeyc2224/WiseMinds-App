@@ -1,4 +1,5 @@
-let questions = ["1", "2", "3"]
+
+let questions = ["What was it like in the 50s?", "Do you remember when..?"]
 
 let currentQuestion = questions.length - 1
 
@@ -38,8 +39,8 @@ function updateRecentPosts() {
         let info = document.createElement('div')
         info.className = "video-info"
 
-        let user = document.createElement('h3')
-        user.innerHTML = "By: " + post.postedBy
+        let user = document.createElement('h4')
+        user.innerHTML = post.postedBy
         info.appendChild(user)
 
         let caption = document.createElement('p')
@@ -52,7 +53,7 @@ function updateRecentPosts() {
         let videoDiv = document.createElement('div')
         videoDiv.className = "video-wrapper"
 
-        let video = document.createElement("VIDEO");
+        let video = document.createElement("IFRAME");
         video.setAttribute("src", post.video)
         video.setAttribute("controls", "controls");
         videoDiv.appendChild(video)
@@ -65,13 +66,29 @@ function updateRecentPosts() {
         likeBtn.innerHTML = "Likes: " + post.likes
         buttonDiv.appendChild(likeBtn)
 
-        let commentBtn = document.createElement('button')
-        commentBtn.innerHTML = post.comments
-        buttonDiv.appendChild(commentBtn)
-
         videoDiv.appendChild(buttonDiv)
 
         postDiv.appendChild(videoDiv)
+
+        //comments section
+        let commentsDiv = document.createElement('div')
+        commentsDiv.className = "comments"
+
+        let commentsTitle = document.createElement('h2')
+        commentsTitle.innerHTML = "Comments"
+        commentsDiv.appendChild(commentsTitle)
+
+        for (const comment of post.comments) {
+            let user = document.createElement('p')
+            user.innerHTML = "<strong>" + comment.commentBy
+            commentsDiv.appendChild(user)
+
+            let message = document.createElement('p')
+            message.innerHTML = comment.comment
+            commentsDiv.appendChild(message)
+        }
+
+        postDiv.appendChild(commentsDiv)
 
         postsContainer.appendChild(postDiv)
     })

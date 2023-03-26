@@ -7,7 +7,7 @@
     justify-content: center;
     display: flex;
     padding: 10px;
-    
+
 }
 
 .dailyQuestionDiv button {
@@ -23,6 +23,7 @@
 
 .video-info {
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .video-wrapper {
@@ -39,7 +40,14 @@
     flex-direction: column;
 }
 
-video {
+iframe {
     width: 100%;
+    height: 600px;
     border-radius: 15px;
+    border: 0px;
+}
+
+.comments{
+    font-size: 14px;
+    margin-top: 10px;
 }

@@ -19,8 +19,8 @@ const Posts = model('Posts', postSchema);
 
 function addNewPost(post) {
     let myPost = {
-        postedBy: "bob",
-        video: "images/weird-bloke.mov",
+        postedBy: "Username",
+        video: post.videoSelect + "#autoplay;loop;hide-title;",
         caption: post.message,
         likes: 5,
         time: Date.now(),
@@ -45,7 +45,7 @@ function chooseDay(num) {
 
 
 //return posts
-async function getPosts(n = 10) {
+async function getPosts(n = 20) {
     let data = []
     await Posts.find({})
         .sort({ 'time': -1 })

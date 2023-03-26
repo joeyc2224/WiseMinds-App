@@ -28,16 +28,9 @@
 
     <div class="main">
         <h2>New Post</h2>
-        <div>
-            <form action="/newpost" method="POST">
-                <label>Caption:</label>
-                <input type="text" id="message" name="message"><br>
-                <br>
-                <input type="submit" value="Post">
-            </form>
-        </div>
 
-        <br><br>
+
+
 
         <div id="container">
             <div>
@@ -47,10 +40,26 @@
                 <button id="start" disabled>start recording</button>
                 <button id="stop" disabled>stop recording</button>
             </div>
-            <div>
-                <p>Video link: <span id="video-link"><i>will be displayed when the recording is
-                            finished</i></span></p>
-            </div>
+        </div>
+
+        <br>
+
+        <div>
+            <form action="/newpost" method="POST">
+
+                <label>Select video: </label>
+                <select name="videoSelect" id="videoSelect" >
+                </select>
+
+                <br><br>
+
+                <label>Caption:</label>
+                <input type="text" id="message" name="message">
+
+                <br><br>
+
+                <input type="submit" value="Post">
+            </form>
         </div>
 
 
@@ -58,7 +67,8 @@
             const video = document.querySelector('#video');
             const startButton = document.getElementById("start");
             const stopButton = document.getElementById("stop");
-            const videoLink = document.getElementById("video-link");
+            const dropDown = document.getElementById("videoSelect");
+
             let stream, recorder;
 
             var constraints = window.constraints = {
@@ -88,7 +98,15 @@
                 startButton.disabled = false;
                 stopButton.disabled = true;
 
-                recorder.stop().then(v => videoLink.innerHTML = v.assets.player);
+                recorder.stop().then(v => saveLink(v.assets.player))
+
+                function saveLink(link) {
+                    let videoOption = document.createElement('option')
+                    videoOption.innerHTML = link
+                    videoOption.value = link
+                    dropDown.appendChild(videoOption)
+                }
+
             });
 
         </script>
