@@ -7,7 +7,6 @@ const postSchema = new Schema({
     caption: String,
     likes: Number,
     time: Date,
-    day: Number,
     comments: [{
         commentBy: String,
         comment: String,
@@ -17,16 +16,15 @@ const postSchema = new Schema({
 
 const Posts = model('Posts', postSchema);
 
-function addNewPost(post) {
+function addNewPost(userID, post) {
     let myPost = {
-        postedBy: "Username",
-        video: post.videoSelect + "#autoplay;loop;hide-title;",
+        postedBy: userID,
+        video: post.videoSelect + "#loop;hide-title;",
         caption: post.message,
-        likes: 5,
+        likes: 0,
         time: Date.now(),
-        day: 2,
         comments: [{
-            commentBy: "Jimmy",
+            commentBy: "Bill",
             comment: "Nice vid mate, really good",
         }]
     }
@@ -37,19 +35,29 @@ function addNewPost(post) {
         })
 }
 
-let day = 2
 
-function chooseDay(num) {
-    day = num
-}
+var startDate = new Date(); // this is the starting date that looks like ISODate("2014-10-03T04:00:00.188Z")
+
+startDate.setSeconds(0);
+startDate.setHours(0);
+startDate.setMinutes(0);
+
+var dateMidnight = new Date(startDate);
+dateMidnight.setHours(23);
+dateMidnight.setMinutes(59);
+dateMidnight.setSeconds(59);
 
 
 //return posts
-async function getPosts(n = 20) {
+async function getPosts(date) {
     let data = []
-    await Posts.find({})
+    await Posts.find({
+        time: {
+            $gte: '2023-04-14 00:00:00',
+            $lt: '2023-04-17 00:00:00'
+        }
+    })
         .sort({ 'time': -1 })
-        .limit(n)
         .exec()
         .then(mongoData => {
             data = mongoData;
@@ -60,4 +68,36 @@ async function getPosts(n = 20) {
     return data;
 }
 
-module.exports = { addNewPost, getPosts, chooseDay }
+//for one post
+async function getPost(postid) {
+    let data = null;
+    await Posts.findById(postid)
+        .exec()
+        .then(mongoData => {
+            data = mongoData;
+        })
+        .catch(err => {
+            console.log('Error:' + err)
+        });
+    return data;
+}
+
+async function likePost(likedPostID) {
+    await Posts.findByIdAndUpdate(likedPostID, { $inc: { likes: 1 } })
+}
+
+
+async function commentOnPost(commentedPostID, commentByUser, comment) {
+    // await Post.findByIdAndUpdate(likedPostID,{$inc: { likes: 1 }})
+    let found
+    let newComment = {
+        user: commentByUser,
+        message: comment,
+        likes: 0
+    }
+    await Posts.findByIdAndUpdate(commentedPostID, { $push: { comments: newComment } }).exec()
+        .then(foundData => found = foundData)
+    // console.log(found)
+}
+
+module.exports = { addNewPost, getPosts, getPost, likePost, commentOnPost };

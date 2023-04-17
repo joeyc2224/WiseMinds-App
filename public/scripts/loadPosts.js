@@ -7,7 +7,6 @@ document.getElementById("question").innerHTML = questions[currentQuestion]
 
 function changeQuestion(num) {
     if (num == 1) {
-        currentQuestion++
         console.log(currentQuestion)
     } else if (currentQuestion > 0) {
         currentQuestion--
@@ -17,10 +16,22 @@ function changeQuestion(num) {
 }
 
 
+let dateSearch = "2023-04-15T11:56:36.389+00:00"
+
 let postsContainer = document.getElementById("post-container")
 let recentPostData = []
 
-fetch("/getposts")
+let postSearch = {
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        date: dateSearch
+    })
+}
+
+fetch("/getposts", postSearch)
     .then(response => response.json())
     .then(fetchedData => {
         recentPostData = fetchedData.posts
@@ -30,7 +41,7 @@ fetch("/getposts")
 function updateRecentPosts() {
     postsContainer.innerHTML = ''
     recentPostData.forEach(function (post) {
-        console.log(post)
+        //console.log(post)
 
         let postDiv = document.createElement('div')
         postDiv.className = "video-content"
@@ -62,8 +73,11 @@ function updateRecentPosts() {
         let buttonDiv = document.createElement('div')
         buttonDiv.className = "action-buttons"
 
+        //like button
         let likeBtn = document.createElement('button')
-        likeBtn.innerHTML = "Likes: " + post.likes
+        likeBtn.innerHTML = post.likes
+        likeBtn.addEventListener('click', processLike)
+        likeBtn.setAttribute('button-post-id', post._id.toString())
         buttonDiv.appendChild(likeBtn)
 
         videoDiv.appendChild(buttonDiv)
@@ -92,4 +106,25 @@ function updateRecentPosts() {
 
         postsContainer.appendChild(postDiv)
     })
+}
+
+function processLike(event) {
+    let likedPostId = event.target.getAttribute("button-post-id");
+    //let likeCount = document.getElementById("likeCount")
+    console.log('you liked ' + likedPostId)
+    let options = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            likedPostID: likedPostId
+        })
+    }
+    fetch('/like', options)
+        .then(response => response.json())
+        .then(fetchedData => {
+            likeNum = fetchedData.post.likes
+            document.querySelector('[button-post-id=' + CSS.escape(likedPostId) + ']').innerHTML = likeNum
+        })
 }
