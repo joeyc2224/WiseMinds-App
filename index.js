@@ -44,6 +44,7 @@ mongoose.connect("mongodb+srv://WiseAdmin:" + mongoDBPassword + "@wisemindsdb.cd
 //data models import
 const users = require('./models/users')
 const postData = require('./models/posts.js')
+const questionData = require('./models/questions.js')
 
 //user check login function
 function checkLoggedIn(request, response, nextAction) {
@@ -118,15 +119,24 @@ app.post('/register', async (request, response) => {
     console.log(users.getUsers())
 })
 
+//new post route to model
 app.post('/newpost', async (request, response) => {
     await postData.addNewPost(request.session.userid, request.body)
     response.redirect('/home.html')
 })
 
+//new question route
+app.post('/newquestion', async (request, response) => {
+    await questionData.addNewQuestion(request.body)
+    response.redirect('/home.html')
+})
+
 app.post('/getposts', async (request, response) => {
     date = request.body.date
+    gtDate = request.body.startDate
+    ltDdate = request.body.endDate
     response.json({
-        posts: await postData.getPosts(date)
+        posts: await postData.getPosts(gtDate, ltDdate)
     })
 })
 

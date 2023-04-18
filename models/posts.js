@@ -36,25 +36,13 @@ function addNewPost(userID, post) {
 }
 
 
-var startDate = new Date(); // this is the starting date that looks like ISODate("2014-10-03T04:00:00.188Z")
-
-startDate.setSeconds(0);
-startDate.setHours(0);
-startDate.setMinutes(0);
-
-var dateMidnight = new Date(startDate);
-dateMidnight.setHours(23);
-dateMidnight.setMinutes(59);
-dateMidnight.setSeconds(59);
-
-
 //return posts
-async function getPosts(date) {
+async function getPosts(gtDate, ltDdate) {
     let data = []
     await Posts.find({
         time: {
-            $gte: '2023-04-14 00:00:00',
-            $lt: '2023-04-17 00:00:00'
+            $gte: gtDate,
+            $lt: ltDdate,
         }
     })
         .sort({ 'time': -1 })

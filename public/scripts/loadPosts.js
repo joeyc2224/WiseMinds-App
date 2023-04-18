@@ -1,42 +1,63 @@
 
-let questions = ["What was it like in the 50s?", "Do you remember when..?"]
+//work out dates to fetch posts form last 24 hours
+convertDays = function (d) {
+    //Convert days into MilliSeconds
+    return d * 86400000;
+}
 
-let currentQuestion = questions.length - 1
+let day = 0
+let gtDate = new Date(Date.now() - convertDays(day + 1))
+let ltDate = new Date(Date.now() - convertDays(day))
 
-document.getElementById("question").innerHTML = questions[currentQuestion]
+function getDates() {
+    gtDate = new Date(Date.now() - convertDays(day + 1))
+    ltDate = new Date(Date.now() - convertDays(day))
+}
+
+
+document.getElementById("question").innerHTML = ltDate
 
 function changeQuestion(num) {
     if (num == 1) {
-        console.log(currentQuestion)
-    } else if (currentQuestion > 0) {
-        currentQuestion--
-        console.log(currentQuestion)
+        day--
+        getDates()
+        getPosts()
     }
-    document.getElementById("question").innerHTML = questions[currentQuestion]
+    else if (num == 0) {
+        day++
+        getDates()
+        getPosts()
+    }
+    document.getElementById("question").innerHTML = ltDate
 }
 
-
-let dateSearch = "2023-04-15T11:56:36.389+00:00"
-
-let postsContainer = document.getElementById("post-container")
+//get recent posts
 let recentPostData = []
 
-let postSearch = {
-    method: 'POST',
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        date: dateSearch
-    })
+window.onload = getPosts()
+
+function getPosts() {
+    getDates()
+    let postSearch = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            startDate: gtDate,
+            endDate: ltDate
+        })
+    }
+    fetch("/getposts", postSearch)
+        .then(response => response.json())
+        .then(fetchedData => {
+            recentPostData = fetchedData.posts
+            console.log(postSearch)
+            updateRecentPosts()
+        })
 }
 
-fetch("/getposts", postSearch)
-    .then(response => response.json())
-    .then(fetchedData => {
-        recentPostData = fetchedData.posts
-        updateRecentPosts()
-    })
+let postsContainer = document.getElementById("post-container")
 
 function updateRecentPosts() {
     postsContainer.innerHTML = ''
