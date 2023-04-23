@@ -17,15 +17,42 @@ function getDates() {
 
 document.getElementById("question").innerHTML = ltDate
 
+let dailyQuestion = ""
+
+window.onload = getDailyQuestion()
+
+function getDailyQuestion() {
+    getDates()
+    let postSearch = {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            startDate: gtDate,
+            endDate: ltDate
+        })
+    }
+    fetch("/getquestion", postSearch)
+        .then(response => response.json())
+        .then(fetchedData => {
+            dailyQuestion = fetchedData.question.text
+            //console.log(dailyQuestion.question)
+            document.getElementById("question").innerHTML = dailyQuestion
+        })
+}
+
 function changeQuestion(num) {
     if (num == 1) {
         day--
         getDates()
+        getDailyQuestion()
         getPosts()
     }
     else if (num == 0) {
         day++
         getDates()
+        getDailyQuestion()
         getPosts()
     }
     document.getElementById("question").innerHTML = ltDate
@@ -52,7 +79,6 @@ function getPosts() {
         .then(response => response.json())
         .then(fetchedData => {
             recentPostData = fetchedData.posts
-            console.log(postSearch)
             updateRecentPosts()
         })
 }
@@ -90,7 +116,7 @@ function updateRecentPosts() {
         video.setAttribute("controls", "controls");
         videoDiv.appendChild(video)
 
-        //buttons
+        //button div
         let buttonDiv = document.createElement('div')
         buttonDiv.className = "action-buttons"
 
@@ -101,11 +127,17 @@ function updateRecentPosts() {
         likeBtn.setAttribute('button-post-id', post._id.toString())
         buttonDiv.appendChild(likeBtn)
 
+        let commentBtn = document.createElement('button')
+        commentBtn.innerHTML = "comment"
+        commentBtn.addEventListener('click', processView)
+        commentBtn.setAttribute('view-post-id', post._id.toString())
+        buttonDiv.appendChild(commentBtn)
+
         videoDiv.appendChild(buttonDiv)
 
         postDiv.appendChild(videoDiv)
 
-        //comments section
+/*         //comments section
         let commentsDiv = document.createElement('div')
         commentsDiv.className = "comments"
 
@@ -123,7 +155,7 @@ function updateRecentPosts() {
             commentsDiv.appendChild(message)
         }
 
-        postDiv.appendChild(commentsDiv)
+        postDiv.appendChild(commentsDiv) */
 
         postsContainer.appendChild(postDiv)
     })
@@ -131,8 +163,7 @@ function updateRecentPosts() {
 
 function processLike(event) {
     let likedPostId = event.target.getAttribute("button-post-id");
-    //let likeCount = document.getElementById("likeCount")
-    console.log('you liked ' + likedPostId)
+    //console.log('you liked ' + likedPostId)
     let options = {
         method: 'POST',
         headers: {
@@ -148,4 +179,10 @@ function processLike(event) {
             likeNum = fetchedData.post.likes
             document.querySelector('[button-post-id=' + CSS.escape(likedPostId) + ']').innerHTML = likeNum
         })
+}
+
+function processView(event) {
+    let viewPostId = event.target.getAttribute("view-post-id");
+    console.log(window.location.origin + '/viewpost.html?post=' + viewPostId)
+    window.location = window.location.origin + '/viewpost.html?post=' + viewPostId
 }

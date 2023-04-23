@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="css/post.css">
     <link rel="stylesheet" type="text/css" href="css/tokens.css">
-
-
-    <script src="https://unpkg.com/@api.video/media-recorder" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Post</title>
@@ -24,96 +22,28 @@
         <a href="home.html"><i class="fa fa-fw fa-home"></i>Home</a>
         <a href=""><i class="fa fa-fw fa-feed"></i>Stories</a>
         <a href=""><i class="fa fa-fw fa-user"></i>Profile</a>
-        <a class="active" href="post.html"><i class="fa fa-fw fa-paper-plane"></i>Post</a>
+        <a href="post.html"><i class="fa fa-fw fa-paper-plane"></i>Post</a>
+        <a class="active" href="question.html"><i class="fa fa-fw fa-question"></i>Question</a>
         <a href="../logout" style="position: absolute; bottom: 0;width: 100%;"><i
                 class="fa fa-fw fa-sign-out"></i>Logout</a>
     </div>
 
 
     <div class="main">
-        <h2>New Post</h2>
 
-
-
-
-        <div id="container">
-            <div>
-                <video id="video"></video>
-            </div>
-            <div>
-                <button id="start" disabled>start recording</button>
-                <button id="stop" disabled>stop recording</button>
-            </div>
-        </div>
-
-        <br>
+        <h2>Set Question</h2>
 
         <div>
-            <form action="/newpost" method="POST">
+            <form action="/newquestion" method="POST">
 
-                <label>Select video: </label>
-                <select name="videoSelect" id="videoSelect">
-                </select>
+                <br>
 
-                <br><br>
+                <label>Question:</label>
+                <input type="text" id="question" name="text">
 
-                <label>Caption:</label>
-                <input type="text" id="message" name="message">
-
-                <br><br>
-
-                <input type="submit" value="Post">
+                <input type="submit" value="Submit">
             </form>
         </div>
-
-
-        <script>
-            const video = document.querySelector('#video');
-            const startButton = document.getElementById("start");
-            const stopButton = document.getElementById("stop");
-            const dropDown = document.getElementById("videoSelect");
-
-            let stream, recorder;
-
-            var constraints = window.constraints = {
-                audio: true,
-                video: true
-            };
-
-            navigator.mediaDevices.getUserMedia(constraints).then((s) => {
-                stream = s;
-                video.srcObject = s;
-                video.play();
-                startButton.disabled = false;
-            });
-
-            document.getElementById("start").addEventListener("click", () => {
-                recorder = new ApiVideoMediaRecorder(stream, {
-                    uploadToken: "to28AX3NCqTXkrMOieyDlViA"
-                });
-
-                recorder.start();
-
-                startButton.disabled = true;
-                stopButton.disabled = false;
-            });
-
-            document.getElementById("stop").addEventListener("click", () => {
-                startButton.disabled = false;
-                stopButton.disabled = true;
-
-                recorder.stop().then(v => saveLink(v.assets.player))
-
-                function saveLink(link) {
-                    let videoOption = document.createElement('option')
-                    videoOption.innerHTML = link
-                    videoOption.value = link
-                    dropDown.appendChild(videoOption)
-                }
-
-            });
-
-        </script>
 
     </div>
 

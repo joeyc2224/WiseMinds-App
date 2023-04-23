@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const questionSchema = new Schema({
-    question: String,
+    text: String,
     time: Date,
 })
 
@@ -10,7 +10,7 @@ const Questions = model('Questions', questionSchema);
 
 function addNewQuestion(question) {
     let dailyQuestion = {
-        question: question.text,
+        text: question.text,
         time: Date.now(),
 
     }
@@ -22,11 +22,10 @@ function addNewQuestion(question) {
 }
 
 
-
-//return posts
-async function getPosts(gtDate, ltDdate) {
-    let data = []
-    await Posts.find({
+//for one post
+async function getQuestion(gtDate, ltDdate) {
+    let data = [];
+    await Questions.findOne({
         time: {
             $gte: gtDate,
             $lt: ltDdate,
@@ -43,18 +42,4 @@ async function getPosts(gtDate, ltDdate) {
     return data;
 }
 
-//for one post
-async function getPost(postid) {
-    let data = null;
-    await Posts.findById(postid)
-        .exec()
-        .then(mongoData => {
-            data = mongoData;
-        })
-        .catch(err => {
-            console.log('Error:' + err)
-        });
-    return data;
-}
-
-module.exports = { addNewQuestion, };
+module.exports = { addNewQuestion, getQuestion };

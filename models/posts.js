@@ -8,8 +8,8 @@ const postSchema = new Schema({
     likes: Number,
     time: Date,
     comments: [{
-        commentBy: String,
-        comment: String,
+        user: String,
+        message: String,
         time: Date,
     }]
 })
@@ -23,10 +23,6 @@ function addNewPost(userID, post) {
         caption: post.message,
         likes: 0,
         time: Date.now(),
-        comments: [{
-            commentBy: "Bill",
-            comment: "Nice vid mate, really good",
-        }]
     }
     //create new collection data in mongo
     Posts.create(myPost)
@@ -81,7 +77,7 @@ async function commentOnPost(commentedPostID, commentByUser, comment) {
     let newComment = {
         user: commentByUser,
         message: comment,
-        likes: 0
+        time: Date.now(),
     }
     await Posts.findByIdAndUpdate(commentedPostID, { $push: { comments: newComment } }).exec()
         .then(foundData => found = foundData)

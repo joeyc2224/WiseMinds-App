@@ -125,18 +125,27 @@ app.post('/newpost', async (request, response) => {
     response.redirect('/home.html')
 })
 
-//new question route
-app.post('/newquestion', async (request, response) => {
-    await questionData.addNewQuestion(request.body)
-    response.redirect('/home.html')
-})
-
 app.post('/getposts', async (request, response) => {
     date = request.body.date
     gtDate = request.body.startDate
     ltDdate = request.body.endDate
     response.json({
         posts: await postData.getPosts(gtDate, ltDdate)
+    })
+})
+
+//new question route
+app.post('/newquestion', async (request, response) => {
+    await questionData.addNewQuestion(request.body)
+    response.redirect('/home.html')
+})
+
+app.post('/getquestion', async (request, response) => {
+    date = request.body.date
+    gtDate = request.body.startDate
+    ltDdate = request.body.endDate
+    response.json({
+        question: await questionData.getQuestion(gtDate, ltDdate)
     })
 })
 
@@ -151,19 +160,16 @@ app.post('/like', async (request, response) => {
     )
 })
 
+app.post('/getpost', async (request, response) => {
+    //console.log(request.body)
+    response.json({ post: await postData.getPost(request.body.post) })
+})
+
 app.post('/comment', async (request, response) => {
     //function to deal with a like button being pressed on a post
     let commentedPostID = request.body.postid
     let comment = request.body.message
     let commentByUser = request.session.userid
     await postData.commentOnPost(commentedPostID, commentByUser, comment)
-    // response.json({post: await postData.getPost(commentedPostID)})
-    response.redirect('/viewposts.html')
-})
-
-app.post('/getonepost', async (request, response) => {
-    // console.log(request.file)
-    let postid = request.body.post
-    console.log(request.body)
-    response.json({ post: await postData.getPost(request.body.post) })
+    response.redirect('/viewpost.html?post=' + commentedPostID)
 })
