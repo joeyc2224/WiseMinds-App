@@ -21,18 +21,18 @@
         --color-primary-900: #94460C;
         --color-primary-1000: #7A3A0D;
 
-        --color-secondary-100: #FFFCEB;     /*Acapulco color palette generated using https://uicolors.app/create see #Styling in Figma*/
-        --color-secondary-200: #FFF7C6;
-        --color-secondary-300: #FFED88;
-        --color-secondary-400: #FFDE4A;
-        --color-secondary-500: #FFCC20;
-        --color-secondary-600: #F9AB07;
-        --color-secondary-700: #D98002;
-        --color-secondary-800: #B75C06;
-        --color-secondary-900: #94460C;
-        --color-secondary-1000: #7A3A0D;
+        --color-secondary-100: #F6F6F9;     /*Acapulco color palette generated using https://uicolors.app/create see #Styling in Figma*/
+        --color-secondary-200: #ECEDF2;
+        --color-secondary-300: #D4D6E3;
+        --color-secondary-400: #AFB2CA;
+        --color-secondary-500: #8389AD;
+        --color-secondary-600: #636A94;
+        --color-secondary-700: #4F537A;
+        --color-secondary-800: #414463;
+        --color-secondary-900: #3D405B;
+        --color-secondary-1000: #323448;
 
-        --color-gray-1: #FFFFFF;
+        /*--color-gray-1: #FFFFFF;
         --color-gray-2: #EEEEEE;
         --color-gray-3: #D5D5D5;
         --color-gray-4: #BBBBBB;
@@ -41,11 +41,18 @@
         --color-gray-7: #6F6F6F;
         --color-gray-8: #555555;
         --color-gray-9: #3C3C3C;
-        --color-gray-10: #222222;
+        --color-gray-10: #222222;*/
 
         --color-text-1: #333333;
         --color-text-2: #050505;
 
+        --color-white: #FFFFFF;
+        --color-gray-1: #F9FDFF;
+        --color-gray-2: #E3E1EB;
+        --color-gray-3: #76767F;
+        --color-gray-4: #45464E;
+        --color-gray-5: #222222;
+        --color-gray-6: #081E24;
 
 
     /* Typography (placeholder) */
@@ -120,6 +127,9 @@
 
     /* Shadows */
 
+    --box-shadow-small: rgba(149, 157, 165, 0.3) 0px 8px 24px;
+    --box-shadow-medium: rgba(149, 157, 165, 0.5) 0px 10px 28px;
+    --box-shadow-large: rgba(149, 157, 165, 0.6) 0px 12px 32px;
 
 
 
