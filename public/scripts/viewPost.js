@@ -44,7 +44,7 @@ function loadPost(postData) {
     user.innerHTML = postData.post.user
     info.appendChild(user)
 
-    let caption = document.createElement('h4')
+    let caption = document.createElement('h3')
     caption.innerHTML = postData.post.caption
     info.appendChild(caption)
 
@@ -72,8 +72,9 @@ function loadPost(postData) {
             userImg.setAttribute("src", "./images/user.png");
             commentUser.appendChild(userImg)
 
-            let username = document.createElement('h3')
+            let username = document.createElement('p')
             username.textContent = comment.user
+            username.style.fontWeight = "bold"
             commentUser.appendChild(username)
 
             commentDiv.appendChild(commentUser)

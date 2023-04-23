@@ -22,6 +22,7 @@ iframe {
 
 .comment-user{
     display: flex;
+    margin-bottom: -10px;
 
 }
 
@@ -30,7 +31,7 @@ iframe {
     height: 40px;
 }
 
-.comment-user h3{
+.comment-user p{
     margin-left: 10px;
     margin-top: 2px;
 }
