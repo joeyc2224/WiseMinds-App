@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiseMinds</title>
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="sidenav">
+        <img src="images/WiseMinds(1).svg"
+            style="width: 110%; margin-bottom: -60px; margin-top: -60px; margin-left: -10px;">
+        <a href="home.html"><i class="fa fa-fw fa-home"></i>Home</a>
+        <a href=""><i class="fa fa-fw fa-feed"></i>Stories</a>
+        <a class="active" href="/profile"><i class="fa fa-fw fa-user"></i>Profile</a>
+        <a href="post.html"><i class="fa fa-fw fa-paper-plane"></i>Post</a>
+        <a href="question.html"><i class="fa fa-fw fa-question"></i>Question</a>
+        <a href="../logout" style="position: absolute; bottom: 0;width: 100%;"><i
+                class="fa fa-fw fa-sign-out"></i>Logout</a>
+    </div>
+
+    <div class="main profile">
+
+        <img class="profile-image" src="images/user.png">
+
+        <h3>
+            <%= user.username %>
+        </h3>
+
+        <br>
+
+        <div class="stats">
+
+            <div>
+                <p class="title">
+                    Followers
+                </p>
+
+                <p>
+                    5
+                </p>
+            </div>
+
+            <div>
+                <p class="title">
+                    Following
+                </p>
+
+                <p>
+                    5
+                </p>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <div class="family-div">
+
+            <h4>Family (placeholder)</h4>
+            
+
+            <div class="fam-members">
+                <div>
+                    <img src="images/child1.jpg">
+
+                    <p>
+                        Timmy
+                    </p>
+                </div>
+
+                <div>
+                    <img src="images/woman1.jpg">
+
+                    <p>
+                        Alisha
+                    </p>
+                </div>
+
+                <div>
+                    <img src="images/plus.png">
+
+                    <p>
+                        Add
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

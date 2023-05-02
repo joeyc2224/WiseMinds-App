@@ -19,7 +19,7 @@
             style="width: 110%; margin-bottom: -60px; margin-top: -60px; margin-left: -10px;">
         <a class="active" href="home.html"><i class="fa fa-fw fa-home"></i>Home</a>
         <a href=""><i class="fa fa-fw fa-feed"></i>Stories</a>
-        <a href=""><i class="fa fa-fw fa-user"></i>Profile</a>
+        <a href="/profile"><i class="fa fa-fw fa-user"></i>Profile</a>
         <a href="post.html"><i class="fa fa-fw fa-paper-plane"></i>Post</a>
         <a href="question.html"><i class="fa fa-fw fa-question"></i>Question</a>
         <a href="../logout" style="position: absolute; bottom: 0;width: 100%;"><i
@@ -29,9 +29,9 @@
     <div class="main">
 
         <div class="dailyQuestionDiv">
-            <button id = "primaryBtn" onclick="changeQuestion(0)"><i class="fa fa-fw fa-arrow-left"></i></button>
+            <button class="question-button" onclick="changeQuestion(0)"><i class="fa fa-fw fa-arrow-left"></i></button>
             <h4 id="question"></h4>
-            <button id = "tertiaryBtn" onclick="changeQuestion(1)"><i class="fa fa-fw fa-arrow-right"></i></button>
+            <button class="question-button" onclick="changeQuestion(1)"><i class="fa fa-fw fa-arrow-right"></i></button>
 
         </div>
 

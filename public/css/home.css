@@ -3,17 +3,7 @@
     margin-top: 53px;
 }
 
-.dailyQuestionDiv {
-    justify-content: center;
-    display: flex;
-    padding: 10px;
 
-}
-
-.dailyQuestionDiv button {
-    margin-left: 20px;
-    margin-right: 20px;
-}
 
 .video-content {
     margin: 0 auto;
@@ -47,7 +37,48 @@ iframe {
     border: 0px;
 }
 
-.comments{
+.comments {
     font-size: 14px;
     margin-top: 10px;
 }
+
+button {
+    align-content: center;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow-small);
+}
+
+.dailyQuestionDiv {
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+}
+
+.dailyQuestionDiv h4{
+    margin-top: 7px;
+}
+
+.dailyQuestionDiv button {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.question-button {
+  background:  var(--color-primary-600);
+  border: 0;
+  border-radius: 50%;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+
+}
+
+.question-button:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(255, 183, 0, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+

@@ -7,6 +7,9 @@ const express = require('express')
 const app = express()
 app.listen(3000, () => console.log('listening on port 3000'))
 
+// set the view engine to ejs
+app.set('view engine', 'ejs');
+
 //server html pages from public folder
 app.use(express.static('public', { index: 'user-views/login.html' }))
 
@@ -61,6 +64,17 @@ function checkLoggedIn(request, response, nextAction) {
 //controller for the main app view, depends on user logged in state
 app.get('/app', checkLoggedIn, (request, response) => {
     response.redirect('home.html')
+})
+
+app.get('/profile', checkLoggedIn, async (request, response) => {
+
+    var userData = await users.findUser(request.session.userid)//get user data from users.js
+    console.log(userData)
+
+    response.render('profile', {
+        user: userData, //user data 
+    });
+
 })
 
 app.get('/signup', (request, response) => {
