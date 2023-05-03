@@ -36,3 +36,9 @@
     height: 100px;
     border-radius: 50%;
 }
+
+progress[value] {
+    
+    width: 300px;
+    height: 20px;
+  }

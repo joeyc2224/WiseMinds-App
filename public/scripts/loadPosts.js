@@ -137,26 +137,6 @@ function updateRecentPosts() {
 
         postDiv.appendChild(videoDiv)
 
-/*         //comments section
-        let commentsDiv = document.createElement('div')
-        commentsDiv.className = "comments"
-
-        let commentsTitle = document.createElement('h2')
-        commentsTitle.innerHTML = "Comments"
-        commentsDiv.appendChild(commentsTitle)
-
-        for (const comment of post.comments) {
-            let user = document.createElement('p')
-            user.innerHTML = "<strong>" + comment.commentBy
-            commentsDiv.appendChild(user)
-
-            let message = document.createElement('p')
-            message.innerHTML = comment.comment
-            commentsDiv.appendChild(message)
-        }
-
-        postDiv.appendChild(commentsDiv) */
-
         postsContainer.appendChild(postDiv)
     })
 }

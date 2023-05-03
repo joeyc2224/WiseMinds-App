@@ -69,10 +69,14 @@ app.get('/app', checkLoggedIn, (request, response) => {
 app.get('/profile', checkLoggedIn, async (request, response) => {
 
     var userData = await users.findUser(request.session.userid)//get user data from users.js
-    console.log(userData)
+
+    var postsData =  await postData.getPostsByUser(request.session.userid)
+
+    console.log(postsData)
 
     response.render('profile', {
         user: userData, //user data 
+        posts: postData
     });
 
 })

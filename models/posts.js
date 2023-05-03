@@ -52,6 +52,19 @@ async function getPosts(gtDate, ltDdate) {
     return data;
 }
 
+async function getPostsByUser(user) {
+    let data = []
+    await Posts.find({ username: user })
+        .sort({ 'time': -1 })
+        .then(mongoData => {
+            data = mongoData;
+        })
+        .catch(err => {
+            console.log('Error:' + err)
+        });
+    return data;
+}
+
 //for one post
 async function getPost(postid) {
     let data = null;
@@ -84,4 +97,4 @@ async function commentOnPost(commentedPostID, commentByUser, comment) {
     // console.log(found)
 }
 
-module.exports = { addNewPost, getPosts, getPost, likePost, commentOnPost };
+module.exports = { addNewPost, getPosts, getPost, likePost, commentOnPost, getPostsByUser };
