@@ -122,13 +122,13 @@ function updateRecentPosts() {
 
         //like button
         let likeBtn = document.createElement('button')
-        likeBtn.innerHTML = post.likes
+        likeBtn.innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i>" + post.likes
         likeBtn.addEventListener('click', processLike)
         likeBtn.setAttribute('button-post-id', post._id.toString())
         buttonDiv.appendChild(likeBtn)
 
         let commentBtn = document.createElement('button')
-        commentBtn.innerHTML = "comment"
+        commentBtn.innerHTML = "<i class='fa fa-commenting'aria-hidden='true'></i> " + post.comments.length
         commentBtn.addEventListener('click', processView)
         commentBtn.setAttribute('view-post-id', post._id.toString())
         buttonDiv.appendChild(commentBtn)
@@ -157,7 +157,7 @@ function processLike(event) {
         .then(response => response.json())
         .then(fetchedData => {
             likeNum = fetchedData.post.likes
-            document.querySelector('[button-post-id=' + CSS.escape(likedPostId) + ']').innerHTML = likeNum
+            document.querySelector('[button-post-id=' + CSS.escape(likedPostId) + ']').innerHTML = "<i class='fa fa-heart' aria-hidden='true'></i>" + likeNum
         })
 }
 

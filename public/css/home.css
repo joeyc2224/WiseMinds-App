@@ -25,6 +25,25 @@
     flex-direction: column;
 }
 
+.action-buttons button {
+width: 50px;
+    margin-bottom: 5px;
+    margin-left: 2px;
+    background-color: var(--color-primary-700);
+    border: 0;
+    color: white;
+    cursor: pointer;
+    transition: box-shadow .2s ease-in-out;
+}
+
+.action-buttons button:not([disabled]):hover {
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(255, 183, 0, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.action-buttons .fa{
+    font-size: 20px;
+}
+
 .button {
     display: flex;
     flex-direction: column;
@@ -53,32 +72,33 @@ button {
     justify-content: center;
     display: flex;
     padding: 10px;
+    text-align: center;
 }
 
-.dailyQuestionDiv h4{
+.dailyQuestionDiv h4 {
     margin-top: 7px;
 }
 
 .dailyQuestionDiv button {
     margin-left: 40px;
     margin-right: 40px;
+    margin-top: 10px;
 }
 
 .question-button {
-  background:  var(--color-primary-600);
-  border: 0;
-  border-radius: 50%;
-  color: #FFFFFF;
-  cursor: pointer;
-  width: 50px;
-  height: 50px;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s ease-in-out;
+    background: var(--color-primary-600);
+    border: 0;
+    border-radius: 50%;
+    color: #FFFFFF;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s ease-in-out;
 
 }
 
 .question-button:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(255, 183, 0, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(255, 183, 0, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
 }
-

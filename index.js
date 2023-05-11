@@ -61,6 +61,10 @@ function checkLoggedIn(request, response, nextAction) {
     }
 }
 
+app.get('/', checkLoggedIn, (request, response) => {
+    response.redirect('home.html')
+})
+
 //controller for the main app view, depends on user logged in state
 app.get('/app', checkLoggedIn, (request, response) => {
     response.redirect('home.html')

@@ -41,7 +41,7 @@ function loadPost(postData) {
 
 
     let user = document.createElement('h2')
-    user.innerHTML = postData.post.user
+    user.innerHTML = postData.post.postedBy
     info.appendChild(user)
 
     let caption = document.createElement('h3')
