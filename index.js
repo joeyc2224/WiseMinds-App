@@ -11,7 +11,7 @@ app.listen(3000, () => console.log('listening on port 3000'))
 app.set('view engine', 'ejs');
 
 //server html pages from public folder
-app.use(express.static('public', { index: 'user-views/login.html' }))
+app.use(express.static('public'))
 
 app.use(express.json())
 
@@ -61,8 +61,8 @@ function checkLoggedIn(request, response, nextAction) {
     }
 }
 
-app.get('/', checkLoggedIn, (request, response) => {
-    response.redirect('home.html')
+app.get('/', (request, response) => {
+    response.redirect('landing.html')
 })
 
 //controller for the main app view, depends on user logged in state
