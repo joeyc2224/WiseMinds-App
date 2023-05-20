@@ -1,3 +1,10 @@
+body {
+    margin: 0;
+    padding: 0;
+    color: #303030;
+    font-family: 'Roboto', sans-serif;
+}
+
 .page-content {
     height: auto;
     max-width: 900px;
@@ -18,20 +25,9 @@ p {
     margin-top: -10px;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: "Titillium Web", sans-serif;
-    color: #303030;
-}
 
-@font-face {
-    font-family: f1Font;
-    src: url(../fonts/Formula1-Bold_web.ttf);
-}
 
 ul {
-    font-family: f1Font;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -54,11 +50,11 @@ li a {
 }
 
 li a:hover:not(.active) {
-    background-color: #111;
+    background-color: #232323;
 }
 
 .active {
-    background-color: #dd8500;
+    background-color: #4a4a4a;
 }
 
 body {
@@ -70,6 +66,7 @@ ul {
     /* Safari */
     position: sticky;
     top: 0;
+    font-weight: 500px;
 }
 
 .header {
@@ -78,6 +75,7 @@ ul {
     color: white;
     margin: -6px;
     background-color: black;
+
 }
 
 .header-img {
